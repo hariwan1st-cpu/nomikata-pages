@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nomikata — あなたの飲み方を、あなたの味方に。</title>
+  <meta name="description" content="お酒好きのためのSNS「Nomikata」。飲み方を発信し、飲み仲間とつながる。ビール・日本酒・ワイン・ウイスキー、全ジャンル対応。">
+  <meta property="og:title" content="Nomikata — あなたの飲み方を、あなたの味方に。">
+  <meta property="og:description" content="飲み方を発信し、飲み仲間とつながるお酒SNS。全ジャンル対応。すべてのお酒好きの味方。">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=DM+Sans:ital,wght@0,400;0,500;0,700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Base ──────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+      color: #1C1917;
+      background: #F7F4EF;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ── Color Tokens ─────────────────────────────── */
+    :root {
+      --bg: #F7F4EF;
+      --bg-elevated: #FFFFFF;
+      --primary: #C9A84C;
+      --primary-dim: #7A5E28;
+      --primary-glow: rgba(201,168,76,0.10);
+      --primary-border: rgba(201,168,76,0.35);
+      --secondary: #4A7D94;
+      --text: #1C1917;
+      --text-medium: #78716C;
+      --text-light: #A8A29E;
+      --border: rgba(0,0,0,0.08);
+      --border-light: rgba(0,0,0,0.05);
+      --danger: #DC2626;
+      --genre-beer: #C27C2C;
+      --genre-sake: #4A8FA6;
+      --genre-wine: #9B3060;
+      --genre-whisky: #B5620A;
+      --genre-shochu: #4A7A5A;
+    }
+
+    /* ── Utility ───────────────────────────────────── */
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 80px 0; }
+    .section-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.15em;
+      color: var(--primary-dim); text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: clamp(24px, 4vw, 36px); font-weight: 900;
+      line-height: 1.4; margin-bottom: 16px;
+    }
+    .section-subtitle {
+      font-size: 16px; color: var(--text-medium); max-width: 560px; line-height: 1.8;
+    }
+
+    /* ── Header ────────────────────────────────────── */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-light);
+      transition: box-shadow 0.3s;
+    }
+    .header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1080px; margin: 0 auto; padding: 0 24px;
+      height: 64px;
+    }
+    .header-logo {
+      font-family: 'DM Sans', sans-serif; font-weight: 700;
+      font-size: 20px; color: var(--primary-dim); letter-spacing: -0.02em;
+    }
+    .header-logo span { color: var(--primary); }
+    .header-tagline {
+      font-size: 11px; color: var(--text-light); margin-left: 12px;
+      font-weight: 400; letter-spacing: 0.02em;
+    }
+    .header-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 24px; border-radius: 99px;
+      background: var(--primary); color: #fff;
+      font-size: 14px; font-weight: 700;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(201,168,76,0.25);
+    }
+    .header-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,168,76,0.3); }
+
+    /* ── Hero ──────────────────────────────────────── */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 64px;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(201,168,76,0.06) 0%, transparent 100%),
+        radial-gradient(ellipse 50% 60% at 20% 80%, rgba(74,125,148,0.04) 0%, transparent 100%),
+        var(--bg);
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+      max-width: 1080px; margin: 0 auto; padding: 0 24px;
+    }
+    .hero-copy { max-width: 480px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 99px;
+      background: var(--primary-glow); border: 1px solid var(--primary-border);
+      font-size: 13px; font-weight: 500; color: var(--primary-dim);
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: clamp(32px, 5.5vw, 52px);
+      font-weight: 900; line-height: 1.3;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dim) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-desc {
+      font-size: 16px; color: var(--text-medium); line-height: 1.9;
+      margin-bottom: 32px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 16px 32px; border-radius: 99px;
+      background: var(--primary); color: #fff;
+      font-size: 16px; font-weight: 700;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(201,168,76,0.3);
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(201,168,76,0.35); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 16px 32px; border-radius: 99px;
+      background: var(--bg-elevated); color: var(--text);
+      font-size: 16px; font-weight: 600;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .btn-secondary:hover { transform: translateY(-1px); background: #FAFAF8; }
+
+    /* Hero Phone Mockup */
+    .hero-visual { display: flex; justify-content: center; position: relative; }
+    .phone-frame {
+      width: 280px; height: 580px;
+      background: #fff; border-radius: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.04);
+      overflow: hidden; position: relative;
+    }
+    .phone-notch {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 32px; background: #000; border-radius: 0 0 20px 20px;
+      z-index: 2;
+    }
+    .phone-screen {
+      position: absolute; inset: 0;
+      padding: 48px 16px 16px;
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .phone-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 8px;
+    }
+    .phone-logo { font-size: 13px; font-weight: 700; color: var(--primary-dim); }
+    .phone-notif {
+      width: 32px; height: 32px; border-radius: 16px;
+      background: #F0EDE6; display: flex; align-items: center; justify-content: center;
+    }
+    .phone-notif-dot { width: 6px; height: 6px; border-radius: 3px; background: var(--primary); }
+    .phone-tabs {
+      display: flex; border-bottom: 1px solid var(--border-light);
+      margin-bottom: 8px;
+    }
+    .phone-tab {
+      flex: 1; text-align: center; padding: 8px 0;
+      font-size: 11px; font-weight: 500; color: var(--text-light);
+    }
+    .phone-tab.active {
+      color: var(--text); font-weight: 700;
+      border-bottom: 2px solid var(--primary);
+    }
+    .phone-post {
+      padding: 10px 0; border-bottom: 1px solid var(--border-light);
+      display: flex; gap: 10px;
+    }
+    .phone-avatar {
+      width: 28px; height: 28px; border-radius: 14px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 600; color: #fff;
+    }
+    .phone-post-content { flex: 1; }
+    .phone-post-name { font-size: 10px; font-weight: 600; color: var(--text); }
+    .phone-post-time { font-size: 9px; color: var(--text-light); margin-left: 4px; }
+    .phone-post-drink { font-size: 10px; font-weight: 500; margin-top: 2px; }
+    .phone-post-stars { font-size: 8px; color: var(--primary); margin-top: 1px; }
+    .phone-post-comment { font-size: 9px; color: var(--text-medium); margin-top: 3px; line-height: 1.5; }
+    .phone-post-actions { display: flex; gap: 14px; margin-top: 5px; font-size: 9px; color: var(--text-light); }
+
+    /* Hero floating badges */
+    .hero-float {
+      position: absolute; padding: 8px 16px;
+      background: var(--bg-elevated); border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      font-size: 13px; font-weight: 500;
+      animation: float 4s ease-in-out infinite;
+    }
+    .hero-float.f1 { top: 60px; right: -40px; animation-delay: 0s; }
+    .hero-float.f2 { bottom: 80px; left: -30px; animation-delay: 1.5s; }
+    .hero-float.f3 { top: 200px; left: -50px; animation-delay: 3s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ── Features ──────────────────────────────────── */
+    .features { background: var(--bg-elevated); }
+    .features-header { text-align: center; margin-bottom: 56px; }
+    .features-header .section-subtitle { margin: 0 auto; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .feature-card {
+      padding: 32px; border-radius: 16px;
+      background: var(--bg);
+      border: 1px solid var(--border-light);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 16px;
+    }
+    .feature-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { font-size: 14px; color: var(--text-medium); line-height: 1.8; }
+
+    /* ── Badge Section ─────────────────────────────── */
+    .badges-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .badge-showcase {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .badge-item {
+      padding: 20px 12px; border-radius: 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-light);
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .badge-item:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .badge-emoji { font-size: 32px; margin-bottom: 8px; }
+    .badge-name { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.4; }
+    .badge-axis { font-size: 10px; color: var(--text-light); margin-top: 4px; }
+
+    /* ── How it Works ──────────────────────────────── */
+    .how { background: var(--bg-elevated); }
+    .how-header { text-align: center; margin-bottom: 56px; }
+    .how-header .section-subtitle { margin: 0 auto; }
+    .how-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 24px; position: relative;
+    }
+    .how-steps::before {
+      content: '';
+      position: absolute; top: 36px; left: 12%; right: 12%;
+      height: 2px; background: var(--border);
+    }
+    .how-step { text-align: center; position: relative; }
+    .how-num {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--primary-glow);
+      border: 2px solid var(--primary-border);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px; position: relative; z-index: 1;
+      font-size: 28px;
+    }
+    .how-step h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .how-step p { font-size: 13px; color: var(--text-medium); line-height: 1.7; }
+
+    /* ── Genre ─────────────────────────────────────── */
+    .genre-grid {
+      display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+      margin-top: 40px;
+    }
+    .genre-chip {
+      display: flex; align-items: center; gap: 8px;
+      padding: 14px 24px; border-radius: 99px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-light);
+      font-size: 15px; font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .genre-chip:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .genre-chip .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+
+    /* ── Stats Preview ─────────────────────────────── */
+    .stats-section { background: var(--bg-elevated); }
+    .stats-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .stats-visual {
+      background: var(--bg); border-radius: 20px; padding: 32px;
+      border: 1px solid var(--border-light);
+    }
+    .stats-bar-group { display: flex; flex-direction: column; gap: 16px; }
+    .stats-bar-label {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px; font-weight: 600; margin-bottom: 6px;
+    }
+    .stats-bar-label span { color: var(--text-light); font-weight: 500; }
+    .stats-bar {
+      height: 8px; border-radius: 4px; background: var(--border);
+      overflow: hidden;
+    }
+    .stats-bar-fill {
+      height: 100%; border-radius: 4px;
+      transition: width 1s ease;
+    }
+
+    /* ── Comparison ────────────────────────────────── */
+    .comparison-table {
+      width: 100%; border-collapse: separate; border-spacing: 0;
+      margin-top: 40px; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .comparison-table th, .comparison-table td {
+      padding: 14px 20px; text-align: center;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 14px;
+    }
+    .comparison-table th {
+      background: var(--bg-elevated); font-weight: 700; font-size: 13px;
+    }
+    .comparison-table th:first-child, .comparison-table td:first-child { text-align: left; }
+    .comparison-table td { background: var(--bg-elevated); }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table .highlight {
+      background: var(--primary-glow);
+      font-weight: 700; color: var(--primary-dim);
+    }
+    .comparison-table .highlight th { background: var(--primary); color: #fff; }
+    .check { color: var(--primary-dim); font-weight: 700; }
+    .muted { color: var(--text-light); }
+
+    /* ── CTA ───────────────────────────────────────── */
+    .cta-section {
+      padding: 100px 0;
+      text-align: center;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 100%),
+        var(--bg);
+    }
+    .cta-title {
+      font-size: clamp(28px, 4.5vw, 44px);
+      font-weight: 900; margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .cta-desc {
+      font-size: 16px; color: var(--text-medium); margin-bottom: 36px;
+      line-height: 1.8;
+    }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cta-note {
+      margin-top: 16px; font-size: 12px; color: var(--text-light);
+    }
+
+    /* ── Footer ────────────────────────────────────── */
+    .footer {
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--border-light);
+      padding: 40px 0;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 16px; color: var(--primary-dim); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 13px; color: var(--text-medium); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 12px; color: var(--text-light); }
+
+    /* ── Animations ────────────────────────────────── */
+    .fade-in {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-copy { margin: 0 auto; }
+      .hero-visual { margin-top: 40px; }
+      .hero-actions { justify-content: center; }
+      .hero-float { display: none; }
+      .features-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .badges-inner { grid-template-columns: 1fr; }
+      .badge-showcase { order: -1; }
+      .how-steps { grid-template-columns: repeat(2, 1fr); }
+      .how-steps::before { display: none; }
+      .stats-inner { grid-template-columns: 1fr; }
+      .comparison-table { font-size: 12px; }
+      .comparison-table th, .comparison-table td { padding: 10px 8px; }
+    }
+    @media (max-width: 600px) {
+      .section { padding: 56px 0; }
+      .how-steps { grid-template-columns: 1fr 1fr; }
+      .badge-showcase { grid-template-columns: repeat(2, 1fr); }
+      .header-tagline { display: none; }
+      .phone-frame { width: 240px; height: 500px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ Header ══════════════════════════════════════ -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <div style="display: flex; align-items: baseline;">
+        <a href="#" class="header-logo"><span>N</span>omikata</a>
+        <span class="header-tagline">あなたの飲み方を、あなたの味方に。</span>
+      </div>
+      <a href="#cta" class="header-cta">事前登録する</a>
+    </div>
+  </header>
+
+  <!-- ══ Hero ════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="hero-badge">🍺 全ジャンル対応のお酒SNS</div>
+        <h1 class="hero-title">
+          あなたの飲み方を、<br><em>あなたの味方に。</em>
+        </h1>
+        <p class="hero-desc">
+          自分だけのお酒の楽しみ方を記録・発信して、<br>
+          同じ趣味を持つ飲み仲間と自然につながれる。<br>
+          Nomikataは、すべてのお酒好きの<strong>「飲み方」</strong>を肯定し、<br>
+          <strong>「味方」</strong>であり続けるプラットフォーム。
+        </p>
+        <div class="hero-actions">
+          <a href="#cta" class="btn-primary">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 14V8m-4 4h8"/></svg>
+            事前登録する（無料）
+          </a>
+          <a href="#features" class="btn-secondary">もっと詳しく ↓</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <!-- Floating badges -->
+        <div class="hero-float f1">🏅 だいたい毎晩</div>
+        <div class="hero-float f2">🍶 気づいたら日本酒</div>
+        <div class="hero-float f3">⭐ 4.8</div>
+
+        <!-- Phone Mockup -->
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="phone-header">
+              <span class="phone-logo">Nomikata</span>
+              <div class="phone-notif"><div class="phone-notif-dot"></div></div>
+            </div>
+            <div class="phone-tabs">
+              <div class="phone-tab active">フォロー中</div>
+              <div class="phone-tab">全公開</div>
+            </div>
+
+            <div class="phone-post">
+              <div class="phone-avatar" style="background: var(--genre-beer);">Y</div>
+              <div class="phone-post-content">
+                <div><span class="phone-post-name">yamada</span><span class="phone-post-time">· 30分前</span></div>
+                <div class="phone-post-drink">🍺 サッポロ黒ラベル</div>
+                <div class="phone-post-stars">★★★★☆</div>
+                <div class="phone-post-comment">仕事終わりの黒ラベルは格別。</div>
+                <div class="phone-post-actions">
+                  <span>♡ 12</span><span>💬 3</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="phone-post">
+              <div class="phone-avatar" style="background: var(--genre-sake);">S</div>
+              <div class="phone-post-content">
+                <div><span class="phone-post-name">sato</span><span class="phone-post-time">· 2時間前</span></div>
+                <div class="phone-post-drink">🍶 獺祭 純米大吟醸</div>
+                <div class="phone-post-stars">★★★★★</div>
+                <div class="phone-post-comment">香りが別格。やっぱり最高。</div>
+                <div class="phone-post-actions">
+                  <span>♡ 24</span><span>💬 7</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="phone-post">
+              <div class="phone-avatar" style="background: var(--genre-beer);">T</div>
+              <div class="phone-post-content">
+                <div><span class="phone-post-name">tanaka</span><span class="phone-post-time">· 5時間前</span></div>
+                <div class="phone-post-drink">🍺 ギネス エクストラスタウト</div>
+                <div class="phone-post-stars">★★★★☆</div>
+                <div class="phone-post-comment">クリーミーな泡が最高。</div>
+                <div class="phone-post-actions">
+                  <span>♡ 8</span><span>💬 1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Features ════════════════════════════════════ -->
+  <section class="section features" id="features">
+    <div class="container">
+      <div class="features-header">
+        <div class="section-label">Features</div>
+        <h2 class="section-title">記録して、つながって、発見する</h2>
+        <p class="section-subtitle">飲み方を発信し、飲み仲間とつながる。Nomikataはすべてのお酒好きの味方です。</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="feature-icon" style="background: rgba(194,124,44,0.10);">📷</div>
+          <h3>スキャンで簡単記録</h3>
+          <p>バーコードをスキャンするだけ。銘柄・ジャンルを自動認識。手動入力も、過去履歴からのクイック記録も可能。</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon" style="background: rgba(74,125,148,0.10);">🏅</div>
+          <h3>パーソナリティバッジ</h3>
+          <p>飲んだデータから「だいたい毎晩」「気づいたら日本酒」などのバッジを自動付与。あなただけの飲みプロフィールが育つ。</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon" style="background: rgba(155,48,96,0.10);">📊</div>
+          <h3>飲み方の可視化</h3>
+          <p>月別・ジャンル別・銘柄別・曜日別の統計で、自分の飲み方パターンが見える。記録するほど精度アップ。</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon" style="background: rgba(201,168,76,0.10);">🍻</div>
+          <h3>お酒好きのSNS</h3>
+          <p>タイムラインで仲間の一杯をチェック。いいね・コメントで共感し合い、新しいお酒との出会いが生まれる。</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon" style="background: rgba(74,122,90,0.10);">🍶</div>
+          <h3>全ジャンル対応</h3>
+          <p>ビール・日本酒・ワイン・ウイスキー・焼酎…全てのお酒を一つのアプリで記録。ジャンルを横断して楽しめる。</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon" style="background: rgba(220,38,38,0.10);">🔔</div>
+          <h3>記録と投稿を分離</h3>
+          <p>記録はあくまで自分のため。投稿したいときだけ共有する。プライベートな飲み日記としても、SNSとしても使える。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Badge System ════════════════════════════════ -->
+  <section class="section" id="badges">
+    <div class="container">
+      <div class="badges-inner">
+        <div>
+          <div class="section-label">Personality Badge</div>
+          <h2 class="section-title">あなたの飲み方が、<br>仲間をつれてくる。</h2>
+          <p class="section-subtitle" style="margin-bottom: 24px;">
+            飲んだデータを4つの軸で分析し、<strong>メインバッジ1つ＋サブバッジ複数</strong>を自動付与。
+            同じバッジの人と共感し合い、違うバッジの人から発見がある。
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span style="padding: 6px 12px; border-radius: 99px; background: var(--primary-glow); border: 1px solid var(--primary-border); font-size: 12px; font-weight: 600; color: var(--primary-dim);">頻度</span>
+            <span style="padding: 6px 12px; border-radius: 99px; background: rgba(74,125,148,0.08); border: 1px solid rgba(74,125,148,0.25); font-size: 12px; font-weight: 600; color: var(--secondary);">ジャンル</span>
+            <span style="padding: 6px 12px; border-radius: 99px; background: rgba(155,48,96,0.08); border: 1px solid rgba(155,48,96,0.25); font-size: 12px; font-weight: 600; color: var(--genre-wine);">シーン</span>
+            <span style="padding: 6px 12px; border-radius: 99px; background: rgba(74,122,90,0.08); border: 1px solid rgba(74,122,90,0.25); font-size: 12px; font-weight: 600; color: var(--genre-shochu);">スタイル</span>
+          </div>
+        </div>
+        <div class="badge-showcase fade-in">
+          <div class="badge-item">
+            <div class="badge-emoji">🍺</div>
+            <div class="badge-name">だいたい毎晩</div>
+            <div class="badge-axis">頻度</div>
+          </div>
+          <div class="badge-item">
+            <div class="badge-emoji">🍶</div>
+            <div class="badge-name">気づいたら日本酒</div>
+            <div class="badge-axis">ジャンル</div>
+          </div>
+          <div class="badge-item">
+            <div class="badge-emoji">🏠</div>
+            <div class="badge-name">家が一番落ち着く</div>
+            <div class="badge-axis">シーン</div>
+          </div>
+          <div class="badge-item">
+            <div class="badge-emoji">🔍</div>
+            <div class="badge-name">いろいろ試したい</div>
+            <div class="badge-axis">スタイル</div>
+          </div>
+          <div class="badge-item">
+            <div class="badge-emoji">🌍</div>
+            <div class="badge-name">なんでも飲む人</div>
+            <div class="badge-axis">ジャンル</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ How it Works ════════════════════════════════ -->
+  <section class="section how">
+    <div class="container">
+      <div class="how-header">
+        <div class="section-label">How it Works</div>
+        <h2 class="section-title">使い方はシンプル</h2>
+        <p class="section-subtitle">飲む → 発信する → 育つ → つながる。この繰り返しが、あなたの飲み仲間を増やしていく。</p>
+      </div>
+      <div class="how-steps">
+        <div class="how-step fade-in">
+          <div class="how-num">🍺</div>
+          <h3>飲む</h3>
+          <p>いつものビールでも、<br>特別な日本酒でも。</p>
+        </div>
+        <div class="how-step fade-in">
+          <div class="how-num">📱</div>
+          <h3>記録する</h3>
+          <p>バーコードスキャンか<br>ワンタップで記録完了。</p>
+        </div>
+        <div class="how-step fade-in">
+          <div class="how-num">🏅</div>
+          <h3>バッジが育つ</h3>
+          <p>あなたの飲み方が<br>パーソナリティに変わる。</p>
+        </div>
+        <div class="how-step fade-in">
+          <div class="how-num">🤝</div>
+          <h3>つながる</h3>
+          <p>同じ匂いのする人と<br>出会い、発見がある。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Genre ═══════════════════════════════════════ -->
+  <section class="section" id="genre">
+    <div class="container" style="text-align: center;">
+      <div class="section-label">All Genres</div>
+      <h2 class="section-title">全ジャンル、ひとつのアプリで。</h2>
+      <p class="section-subtitle" style="margin: 0 auto;">
+        ビールだけ、日本酒だけ、ワインだけ。<br>
+        もう特化アプリを使い分ける必要はありません。
+      </p>
+      <div class="genre-grid">
+        <div class="genre-chip"><div class="dot" style="background: var(--genre-beer);"></div>🍺 ビール</div>
+        <div class="genre-chip"><div class="dot" style="background: var(--genre-sake);"></div>🍶 日本酒</div>
+        <div class="genre-chip"><div class="dot" style="background: var(--genre-wine);"></div>🍷 ワイン</div>
+        <div class="genre-chip"><div class="dot" style="background: var(--genre-whisky);"></div>🥃 ウイスキー</div>
+        <div class="genre-chip"><div class="dot" style="background: var(--genre-shochu);"></div>🍵 焼酎</div>
+        <div class="genre-chip"><div class="dot" style="background: var(--text-light);"></div>🍹 チューハイ</div>
+        <div class="genre-chip"><div class="dot" style="background: var(--secondary);"></div>🍸 カクテル</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Stats Preview ═══════════════════════════════ -->
+  <section class="section stats-section">
+    <div class="container">
+      <div class="stats-inner">
+        <div>
+          <div class="section-label">Statistics</div>
+          <h2 class="section-title">あなたの飲み方を<br>データで見る</h2>
+          <p class="section-subtitle">
+            月別・ジャンル別・銘柄別・曜日別のグラフで、自分だけの飲み方パターンが可視化される。
+            記録するたびに、新しい発見がある。
+          </p>
+        </div>
+        <div class="stats-visual fade-in">
+          <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 20px; color: var(--text);">ジャンル別割合</h4>
+          <div class="stats-bar-group">
+            <div>
+              <div class="stats-bar-label">🍺 ビール <span>42%</span></div>
+              <div class="stats-bar"><div class="stats-bar-fill" style="width: 42%; background: var(--genre-beer);"></div></div>
+            </div>
+            <div>
+              <div class="stats-bar-label">🍶 日本酒 <span>28%</span></div>
+              <div class="stats-bar"><div class="stats-bar-fill" style="width: 28%; background: var(--genre-sake);"></div></div>
+            </div>
+            <div>
+              <div class="stats-bar-label">🍷 ワイン <span>15%</span></div>
+              <div class="stats-bar"><div class="stats-bar-fill" style="width: 15%; background: var(--genre-wine);"></div></div>
+            </div>
+            <div>
+              <div class="stats-bar-label">🥃 ウイスキー <span>10%</span></div>
+              <div class="stats-bar"><div class="stats-bar-fill" style="width: 10%; background: var(--genre-whisky);"></div></div>
+            </div>
+            <div>
+              <div class="stats-bar-label">🍵 焼酎 <span>5%</span></div>
+              <div class="stats-bar"><div class="stats-bar-fill" style="width: 5%; background: var(--genre-shochu);"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Comparison ══════════════════════════════════ -->
+  <section class="section" id="comparison">
+    <div class="container" style="text-align: center;">
+      <div class="section-label">Why Nomikata</div>
+      <h2 class="section-title">他のアプリとの違い</h2>
+      <p class="section-subtitle" style="margin: 0 auto 0;">
+        「全ジャンル × SNS × パーソナリティ可視化 × 飲み仲間プラットフォーム」が揃うのはNomikataだけ。
+      </p>
+      <table class="comparison-table fade-in">
+        <thead>
+          <tr>
+            <th></th>
+            <th>対象ジャンル</th>
+            <th>日本語</th>
+            <th>SNS機能</th>
+            <th>パーソナリティ</th>
+            <th>スキャン記録</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight: 600;">Untappd</td>
+            <td>ビールのみ</td>
+            <td class="muted">△</td>
+            <td class="check">○</td>
+            <td class="muted">×</td>
+            <td class="check">○</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 600;">Vivino</td>
+            <td>ワインのみ</td>
+            <td class="check">○</td>
+            <td class="muted">△</td>
+            <td class="muted">×</td>
+            <td class="check">○</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 600;">Saketime</td>
+            <td>日本酒のみ</td>
+            <td class="check">◎</td>
+            <td class="muted">△</td>
+            <td class="muted">×</td>
+            <td class="muted">△</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 600;">Instagram / X</td>
+            <td>ジャンルレス</td>
+            <td class="check">◎</td>
+            <td class="check">◎</td>
+            <td class="muted">×</td>
+            <td class="muted">×</td>
+          </tr>
+          <tr class="highlight">
+            <th style="background: var(--primary); color: #fff; font-weight: 700;">Nomikata</th>
+            <td><strong>全ジャンル</strong></td>
+            <td class="check">◎</td>
+            <td class="check">◎</td>
+            <td class="check">◎</td>
+            <td class="check">◎</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ CTA ═════════════════════════════════════════ -->
+  <section class="cta-section" id="cta">
+    <div class="container">
+      <h2 class="cta-title">
+        あなたの<em style="font-style: normal; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dim) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">飲み方</em>の<br>味方になります。
+      </h2>
+      <p class="cta-desc">
+        事前登録で、リリース時にいち早くお届けします。<br>
+        完全無料で始められます。
+      </p>
+      <div class="cta-actions">
+        <a href="#" class="btn-primary" style="font-size: 18px; padding: 18px 40px;">
+          📱 事前登録する（無料）
+        </a>
+      </div>
+      <p class="cta-note">※ iOS / Android 両対応予定。20歳以上の方のみご利用いただけます。</p>
+    </div>
+  </section>
+
+  <!-- ══ Footer ══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-logo">Nomikata</div>
+        </div>
+        <div class="footer-links">
+          <a href="#">利用規約</a>
+          <a href="#">プライバシーポリシー</a>
+          <a href="#">お問い合わせ</a>
+        </div>
+        <div class="footer-copy">&copy; 2026 Nomikata. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══ Scripts ═════════════════════════════════════ -->
+  <script>
+    // Header scroll shadow
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
