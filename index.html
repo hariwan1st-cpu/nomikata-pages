@@ -257,30 +257,6 @@
     .feature-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
     .feature-card p { font-size: 14px; color: var(--text-medium); line-height: 1.8; }
 
-    /* ── Badge Section ─────────────────────────────── */
-    .badges-inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
-    }
-    .badge-showcase {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    .badge-item {
-      padding: 20px 12px; border-radius: 16px;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-light);
-      text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .badge-item:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
-    .badge-icon {
-      width: 48px; height: 48px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 8px; font-size: 20px; font-weight: 700; color: #fff;
-    }
-    .badge-name { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.4; }
-    .badge-axis { font-size: 10px; color: var(--text-light); margin-top: 4px; }
-
     /* ── How it Works ──────────────────────────────── */
     .how { background: var(--bg-elevated); }
     .how-header { text-align: center; margin-bottom: 56px; }
@@ -430,8 +406,6 @@
       .hero-actions { justify-content: center; }
       .hero-float { display: none; }
       .features-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-      .badges-inner { grid-template-columns: 1fr; }
-      .badge-showcase { order: -1; }
       .how-steps { grid-template-columns: repeat(2, 1fr); }
       .how-steps::before { display: none; }
       .stats-inner { grid-template-columns: 1fr; }
@@ -441,7 +415,6 @@
     @media (max-width: 600px) {
       .section { padding: 56px 0; }
       .how-steps { grid-template-columns: 1fr 1fr; }
-      .badge-showcase { grid-template-columns: repeat(2, 1fr); }
       .header-tagline { display: none; }
       .phone-frame { width: 240px; height: 500px; }
     }
@@ -484,9 +457,9 @@
       </div>
 
       <div class="hero-visual">
-        <!-- Floating badges -->
-        <div class="hero-float f1">だいたい毎晩</div>
-        <div class="hero-float f2">気づいたら日本酒</div>
+        <!-- Floating stats -->
+        <div class="hero-float f1">42% ビール</div>
+        <div class="hero-float f2">128 記録</div>
         <div class="hero-float f3">4.8</div>
 
         <!-- Phone Mockup -->
@@ -566,8 +539,8 @@
           <div class="feature-icon" style="background: rgba(74,125,148,0.10); color: var(--secondary);">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7v2"/><path d="M16 3l2 2-2 2"/></svg>
           </div>
-          <h3>パーソナリティバッジ</h3>
-          <p>飲んだデータから「だいたい毎晩」「気づいたら日本酒」などのバッジを自動付与。あなただけの飲みプロフィールが育つ。</p>
+          <h3>飲みプロフィール</h3>
+          <p>記録が積み重なるほど、あなただけの飲み方プロフィールが浮かび上がる。好みの傾向を客観的に把握できる。</p>
         </div>
         <div class="feature-card fade-in">
           <div class="feature-icon" style="background: rgba(155,48,96,0.10); color: var(--genre-wine);">
@@ -601,55 +574,6 @@
     </div>
   </section>
 
-  <!-- ══ Badge System ════════════════════════════════ -->
-  <section class="section" id="badges">
-    <div class="container">
-      <div class="badges-inner">
-        <div>
-          <div class="section-label">Personality Badge</div>
-          <h2 class="section-title">あなたの飲み方が、<br>仲間をつれてくる。</h2>
-          <p class="section-subtitle" style="margin-bottom: 24px;">
-            飲んだデータを4つの軸で分析し、<strong>メインバッジ1つ＋サブバッジ複数</strong>を自動付与。
-            同じバッジの人と共感し合い、違うバッジの人から発見がある。
-          </p>
-          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-            <span style="padding: 6px 12px; border-radius: 99px; background: var(--primary-glow); border: 1px solid var(--primary-border); font-size: 12px; font-weight: 600; color: var(--primary-dim);">頻度</span>
-            <span style="padding: 6px 12px; border-radius: 99px; background: rgba(74,125,148,0.08); border: 1px solid rgba(74,125,148,0.25); font-size: 12px; font-weight: 600; color: var(--secondary);">ジャンル</span>
-            <span style="padding: 6px 12px; border-radius: 99px; background: rgba(155,48,96,0.08); border: 1px solid rgba(155,48,96,0.25); font-size: 12px; font-weight: 600; color: var(--genre-wine);">シーン</span>
-            <span style="padding: 6px 12px; border-radius: 99px; background: rgba(74,122,90,0.08); border: 1px solid rgba(74,122,90,0.25); font-size: 12px; font-weight: 600; color: var(--genre-shochu);">スタイル</span>
-          </div>
-        </div>
-        <div class="badge-showcase fade-in">
-          <div class="badge-item">
-            <div class="badge-icon" style="background: var(--primary);">毎</div>
-            <div class="badge-name">だいたい毎晩</div>
-            <div class="badge-axis">頻度</div>
-          </div>
-          <div class="badge-item">
-            <div class="badge-icon" style="background: var(--genre-sake);">酒</div>
-            <div class="badge-name">気づいたら日本酒</div>
-            <div class="badge-axis">ジャンル</div>
-          </div>
-          <div class="badge-item">
-            <div class="badge-icon" style="background: var(--genre-shochu);">家</div>
-            <div class="badge-name">家が一番落ち着く</div>
-            <div class="badge-axis">シーン</div>
-          </div>
-          <div class="badge-item">
-            <div class="badge-icon" style="background: var(--genre-wine);">探</div>
-            <div class="badge-name">いろいろ試したい</div>
-            <div class="badge-axis">スタイル</div>
-          </div>
-          <div class="badge-item">
-            <div class="badge-icon" style="background: var(--secondary);">全</div>
-            <div class="badge-name">なんでも飲む人</div>
-            <div class="badge-axis">ジャンル</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ══ How it Works ════════════════════════════════ -->
   <section class="section how">
     <div class="container">
@@ -671,8 +595,8 @@
         </div>
         <div class="how-step fade-in">
           <div class="how-num">03</div>
-          <h3>バッジが育つ</h3>
-          <p>あなたの飲み方が<br>パーソナリティに変わる。</p>
+          <h3>傾向が見える</h3>
+          <p>データが積み重なり<br>自分の飲み方が可視化される。</p>
         </div>
         <div class="how-step fade-in">
           <div class="how-num">04</div>
@@ -751,7 +675,7 @@
       <div class="section-label">Why NOMIKATA</div>
       <h2 class="section-title">他のアプリとの違い</h2>
       <p class="section-subtitle" style="margin: 0 auto 0;">
-        「全ジャンル × SNS × パーソナリティ可視化 × 飲み仲間プラットフォーム」が揃うのはNOMIKATAだけ。
+        「全ジャンル × SNS × 統計可視化 × 飲み仲間プラットフォーム」が揃うのはNOMIKATAだけ。
       </p>
       <table class="comparison-table fade-in">
         <thead>
@@ -760,7 +684,7 @@
             <th>対象ジャンル</th>
             <th>日本語</th>
             <th>SNS機能</th>
-            <th>パーソナリティ</th>
+            <th>統計・可視化</th>
             <th>スキャン記録</th>
           </tr>
         </thead>
