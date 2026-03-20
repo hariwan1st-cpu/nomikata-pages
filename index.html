@@ -54,6 +54,9 @@
       --genre-wine: #9B3060;
       --genre-whisky: #B5620A;
       --genre-shochu: #4A7A5A;
+      --genre-spirits: #6B5B95;
+      --genre-chuhai: #E8963A;
+      --genre-nonalc: #5BA4B5;
     }
 
     /* ── Utility ───────────────────────────────────── */
@@ -451,7 +454,7 @@
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-copy">
-        <div class="hero-badge">全ジャンル対応のお酒SNS</div>
+        <div class="hero-badge">全ジャンル対応 / 2,500+銘柄のお酒SNS</div>
         <h1 class="hero-title">
           あなたの飲み方を、<br><em>あなたの味方に。</em>
         </h1>
@@ -636,8 +639,9 @@
         <div class="genre-chip"><div class="dot" style="background: var(--genre-wine);"></div>ワイン</div>
         <div class="genre-chip"><div class="dot" style="background: var(--genre-whisky);"></div>ウイスキー</div>
         <div class="genre-chip"><div class="dot" style="background: var(--genre-shochu);"></div>焼酎</div>
-        <div class="genre-chip"><div class="dot" style="background: var(--text-light);"></div>チューハイ</div>
-        <div class="genre-chip"><div class="dot" style="background: var(--secondary);"></div>カクテル</div>
+        <div class="genre-chip"><div class="dot" style="background: var(--genre-spirits);"></div>スピリッツ</div>
+        <div class="genre-chip"><div class="dot" style="background: var(--genre-chuhai);"></div>チューハイ</div>
+        <div class="genre-chip"><div class="dot" style="background: var(--genre-nonalc);"></div>ノンアル</div>
       </div>
     </div>
   </section>
@@ -689,7 +693,7 @@
       <div class="section-label">Why NOMIKATA</div>
       <h2 class="section-title">他のアプリとの違い</h2>
       <p class="section-subtitle" style="margin: 0 auto 0;">
-        「全ジャンル × SNS × 統計可視化 × 飲み仲間プラットフォーム」が揃うのはNOMIKATAだけ。
+        「全ジャンル × SNS × パーソナリティ可視化 × 飲み仲間プラットフォーム」が揃うのはNOMIKATAだけ。
       </p>
       <table class="comparison-table fade-in">
         <thead>
@@ -698,6 +702,7 @@
             <th>対象ジャンル</th>
             <th>日本語</th>
             <th>SNS機能</th>
+            <th>パーソナリティ</th>
             <th>統計・可視化</th>
             <th>スキャン記録</th>
           </tr>
@@ -709,6 +714,7 @@
             <td class="muted">△</td>
             <td class="check">○</td>
             <td class="muted">×</td>
+            <td class="muted">×</td>
             <td class="check">○</td>
           </tr>
           <tr>
@@ -717,6 +723,7 @@
             <td class="check">○</td>
             <td class="muted">△</td>
             <td class="muted">×</td>
+            <td class="muted">×</td>
             <td class="check">○</td>
           </tr>
           <tr>
@@ -724,6 +731,7 @@
             <td>日本酒のみ</td>
             <td class="check">◎</td>
             <td class="muted">△</td>
+            <td class="muted">×</td>
             <td class="muted">×</td>
             <td class="muted">△</td>
           </tr>
@@ -734,10 +742,12 @@
             <td class="check">◎</td>
             <td class="muted">×</td>
             <td class="muted">×</td>
+            <td class="muted">×</td>
           </tr>
           <tr class="highlight">
             <th style="background: var(--primary); color: #fff; font-weight: 700;">NOMIKATA</th>
             <td><strong>全ジャンル</strong></td>
+            <td class="check">◎</td>
             <td class="check">◎</td>
             <td class="check">◎</td>
             <td class="check">◎</td>
