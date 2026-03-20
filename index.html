@@ -89,6 +89,7 @@
       max-width: 1080px; margin: 0 auto; padding: 0 24px;
       height: 64px;
     }
+    .header-icon { margin-right: 8px; flex-shrink: 0; }
     .header-logo {
       font-family: 'Sora', sans-serif; font-weight: 500;
       font-size: 20px; color: var(--primary-dim); letter-spacing: 3px;
@@ -442,7 +443,13 @@
   <!-- ══ Header ══════════════════════════════════════ -->
   <header class="header" id="header">
     <div class="header-inner">
-      <div style="display: flex; align-items: baseline;">
+      <div style="display: flex; align-items: center;">
+        <svg class="header-icon" width="24" height="24" viewBox="0 0 32 32" fill="none">
+          <path d="M6 8 C6 8, 5.5 24, 10 27 C12 28.5, 20 28.5, 22 27 C26.5 24, 26 8, 26 8" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M5 8 L27 8" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M9 15 Q12 12.5, 16 15 Q20 17.5, 23 15" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+          <circle cx="22" cy="11.5" r="1.2" fill="var(--primary)" opacity="0.45"/>
+        </svg>
         <a href="#" class="header-logo">NOMIKATA</a>
         <span class="header-tagline">あなたの飲み方を、あなたの味方に。</span>
       </div>
@@ -484,7 +491,14 @@
           <div class="phone-notch"></div>
           <div class="phone-screen">
             <div class="phone-header">
-              <span class="phone-logo">NOMIKATA</span>
+              <span class="phone-logo" style="display: flex; align-items: center; gap: 4px;">
+                <svg width="12" height="12" viewBox="0 0 32 32" fill="none">
+                  <path d="M6 8 C6 8, 5.5 24, 10 27 C12 28.5, 20 28.5, 22 27 C26.5 24, 26 8, 26 8" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                  <path d="M5 8 L27 8" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M9 15 Q12 12.5, 16 15 Q20 17.5, 23 15" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+                </svg>
+                NOMIKATA
+              </span>
               <div class="phone-notif"><div class="phone-notif-dot"></div></div>
             </div>
             <div class="phone-tabs">
@@ -781,7 +795,13 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-inner">
-        <div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+            <path d="M6 8 C6 8, 5.5 24, 10 27 C12 28.5, 20 28.5, 22 27 C26.5 24, 26 8, 26 8" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M5 8 L27 8" stroke="var(--primary)" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M9 15 Q12 12.5, 16 15 Q20 17.5, 23 15" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+            <circle cx="22" cy="11.5" r="1.2" fill="var(--primary)" opacity="0.45"/>
+          </svg>
           <div class="footer-logo">NOMIKATA</div>
         </div>
         <div class="footer-links">
